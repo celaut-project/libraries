@@ -11,9 +11,9 @@ from node_controller.gateway.utils import from_gas_amount
 from node_controller.utils.lambdas import LOGGER
 
 
-def generate_gateway_stub(gateway_uri: str) -> gateway_pb2_grpc.GatewayStub:
+def generate_gateway_stub(node_url: str) -> gateway_pb2_grpc.GatewayStub:
     return gateway_pb2_grpc.GatewayStub(
-        grpc.insecure_channel(gateway_uri)
+        grpc.insecure_channel(node_url)
     )
 
 
@@ -115,7 +115,7 @@ def modify_resources(i: dict, node_url: str) -> Tuple[celaut_pb2.Sysresources, i
     output: gateway_pb2.ModifyServiceSystemResourcesOutput = next(
         client_grpc(
             method=gateway_pb2_grpc.GatewayStub(
-                grpc.insecure_channel(gateway_main_dir)
+                grpc.insecure_channel(node_url)
             ).ModifyServiceSystemResources,
             input=gateway_pb2.ModifyServiceSystemResourcesInput(
                 min_sysreq=celaut_pb2.Sysresources(

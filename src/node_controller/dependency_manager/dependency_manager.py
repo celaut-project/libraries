@@ -22,7 +22,7 @@ PASS_TIMEOUT_TIMES_DEFAULT = 5
 class DependencyManager(metaclass=Singleton):
 
     def __init__(self,
-                 gateway_main_dir: str,
+                 node_url: str,
                  static_service_directory: str = STATIC_SERVICE_DIRECTORY,
                  static_metadata_directory: str = STATIC_METADATA_DIRECTORY,
                  dynamic_service_directory: str = DYNAMIC_SERVICE_DIRECTORY,
@@ -46,7 +46,7 @@ class DependencyManager(metaclass=Singleton):
         self.dynamic_metadata_directory = dynamic_metadata_directory
 
         self.services: Dict[str, ServiceConfig] = {}
-        self.gateway_stub: gateway_pb2_grpc.GatewayStub = generate_gateway_stub(gateway_main_dir)
+        self.gateway_stub: gateway_pb2_grpc.GatewayStub = generate_gateway_stub(node_url)
 
         self.lock = Lock()
         Thread(target=self.maintenance, name='DependencyMaintainer').start()

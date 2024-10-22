@@ -30,7 +30,7 @@ class Controller(metaclass=Singleton):
 
         if default_dependency_manager:
             DependencyManager(
-                gateway_main_dir=self.node_url,
+                node_url=self.node_url,
                 maintenance_sleep_time=60,
                 timeout=30,
                 failed_attempts=3,
