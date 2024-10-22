@@ -3,11 +3,15 @@ import threading
 
 class Singleton(type):
     _instances = {}
-    _lock = threading.Lock()
+    _locks = {}
 
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
-            with cls._lock:
+            # Each class will have its own lock
+            if cls not in cls._locks:
+                Singleton._locks[cls] = threading.Lock()
+
+            with Singleton._locks[cls]:
                 # another thread could have created the instance
                 # before we acquired the lock. So check that the
                 # instance is still nonexistent.
