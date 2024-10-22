@@ -55,7 +55,7 @@ class DependencyManager(metaclass=Singleton):
         while True:
             sleep(self.maintenance_sleep_time)
             index = 0
-            while True:  # Si hacemos for service in services habría que bloquear el bucle entero.
+            while True:  # If we do for service in services, the entire loop would need to be blocked.
                 LOGGER('maintainer want services lock' + str(self.lock.locked()))
                 self.lock.acquire()
 
@@ -68,7 +68,7 @@ class DependencyManager(metaclass=Singleton):
                         instance: ServiceInstance = service_config.get_instance(deep=True)
 
                     except IndexError:
-                        # No hay instancias disponibles en esta cola.
+                        # There are no available instances in this queue.
                         self.lock.release()
                         continue
                 except IndexError:
@@ -82,8 +82,7 @@ class DependencyManager(metaclass=Singleton):
                 self.lock.release()
 
                 LOGGER('      maintain service instance --> ' + str(instance))
-                # En caso de que lleve mas de demasiado tiempo sin usarse.
-                # o se encuentre en estado 'zombie'
+                # In case it has gone unused for too long or is in a 'zombie' state.
                 if datetime.now() - instance.use_datetime > timedelta(
                         minutes=self.maintenance_sleep_time) \
                         or instance.is_zombie(
@@ -92,7 +91,7 @@ class DependencyManager(metaclass=Singleton):
                     failed_attempts=service_config.failed_attempts
                 ):
                     instance.stop(self.gateway_stub)
-                # En caso contrario añade de nuevo la instancia a su respectiva cola.
+                # Otherwise, add the instance back to its respective queue.
                 else:
                     self.lock.acquire()
                     service_config.add_instance(instance, deep=True)

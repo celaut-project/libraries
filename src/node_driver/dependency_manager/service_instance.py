@@ -1,7 +1,5 @@
-# Si se toma una instancia, se debe de asegurar que, o bien se agrega a su cola
-#  correspondiente, o bien se para. No asegurar esto ocasiona un bug importante,
-#  ya que las instancias quedarían zombies en la red hasta que el servicio
-#  fuera eliminado.
+# If an instance is taken, it must be ensured that it is either added to its corresponding queue or stopped. 
+# Not ensuring this causes a significant bug, as the instances would remain as zombies on the network until the service is removed.
 from datetime import datetime
 from time import sleep
 

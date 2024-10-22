@@ -46,8 +46,8 @@ class ServiceConfig(object):
         ]
 
         # Service's instances.
-        self.instances: List[ServiceInstance] = []  # se da uso de una pila para que el 'maintainer' detecte las
-        # instancias que quedan en desuso, ya que quedarán estancadas al final de la pila.
+        self.instances: List[ServiceInstance] = []  # A stack is used so that the 'maintainer' can detect instances that fall into disuse, as they will remain stuck at the end of the stack.
+
 
         self.check_if_is_alive = check_if_is_alive
         self.timeout = timeout
