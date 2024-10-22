@@ -9,8 +9,8 @@ from node_driver.gateway.communication import stop
 
 
 class ServiceInstance(object):
-    def __init__(self, stub, token, check_if_is_alive):
-        self.stub = stub
+    def __init__(self, uri: str, token, check_if_is_alive):
+        self.uri = uri
         self.token = token
         self.creation_datetime = datetime.now()
         self.use_datetime = datetime.now()

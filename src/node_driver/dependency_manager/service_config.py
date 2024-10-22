@@ -1,5 +1,5 @@
 from threading import Lock
-from typing import List, Callable, Any, Tuple, Union
+from typing import List, Callable, Any, Tuple, Union, Optional
 
 from node_driver.dependency_manager.service_instance import ServiceInstance
 from node_driver.gateway.communication import generate_instance_stub, launch_instance
@@ -14,7 +14,6 @@ class ServiceConfig(object):
     def __init__(self,
                  service_hash: str,
                  config: celaut.Configuration,
-                 stub_class,
                  timeout: int,
                  failed_attempts: int,
                  pass_timeout_times: int,
@@ -24,12 +23,11 @@ class ServiceConfig(object):
                  static_metadata_directory: str,
                  dynamic_service_directory: str,
                  dynamic_metadata_directory: str,
-                 check_if_is_alive=None,
-                 ):
+                 check_if_is_alive: Optional[Callable[[], bool]]=None,
+        ):
 
         self.lock: Lock = Lock()
 
-        self.stub_class = stub_class
         self.dev_client = dev_client
         self.static_service_directory = static_service_directory
         self.static_metadata_directory = static_metadata_directory
@@ -91,10 +89,7 @@ class ServiceConfig(object):
         LOGGER('The uri for the service ' + self.service_hash + ' is--> ' + str(uri))
 
         return ServiceInstance(
-            stub=generate_instance_stub(
-                stub_class=self.stub_class,
-                uri=celaut_uri_to_str(uri)
-            ),
+            uri=f"{uri.ip}:{str(uri.port)}",
             token=instance.token,
             check_if_is_alive=self.check_if_is_alive
             if self.check_if_is_alive

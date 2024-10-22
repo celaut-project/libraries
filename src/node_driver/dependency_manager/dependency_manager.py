@@ -100,7 +100,6 @@ class DependencyManager(metaclass=Singleton):
     def add_service(self,
                     service_hash: str,
                     config: celaut_pb2.Configuration,
-                    stub_class,
                     dynamic: bool,
                     timeout: int = None,
                     failed_attempts: int = None,
@@ -119,7 +118,6 @@ class DependencyManager(metaclass=Singleton):
             service_config: ServiceConfig = ServiceConfig(
                 service_hash=service_hash,
                 config=config,
-                stub_class=stub_class,
                 timeout=timeout if timeout else self.timeout,
                 failed_attempts=failed_attempts if failed_attempts else self.failed_attempts,
                 pass_timeout_times=pass_timeout_times if pass_timeout_times else self.pass_timeout_times,
