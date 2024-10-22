@@ -46,7 +46,7 @@ class Controller(metaclass=Singleton):
             ResourceManager(
                 log=lambda message: logging.info(message),
                 ram_pool_method=lambda: self.mem_limit,
-                modify_resources=lambda d: modify_resources(i=d, gateway_main_dir=self.node_url)
+                modify_resources=lambda d: modify_resources(i=d, node_url=self.node_url)
             )
 
     def get_node_url(self) -> str:
