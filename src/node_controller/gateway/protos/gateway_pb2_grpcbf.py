@@ -1,4 +1,4 @@
-from node_driver.gateway.protos import gateway_pb2
+from node_controller.gateway.protos import gateway_pb2
 
 StartService_input_indices = {
     1: gateway_pb2.Client,

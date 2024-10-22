@@ -1,4 +1,4 @@
-from node_driver.gateway.protos import gateway_pb2
+from node_controller.gateway.protos import gateway_pb2
 
 
 def to_gas_amount(gas_amount: int) -> gateway_pb2.GasAmount:

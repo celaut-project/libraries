@@ -5,10 +5,10 @@ from typing import List, Tuple
 from grpcbigbuffer.client import Dir, client_grpc
 import grpc
 
-from node_driver.gateway.protos import gateway_pb2, gateway_pb2_grpc, celaut_pb2
-from node_driver.gateway.protos.gateway_pb2_grpcbf import StartService_input_indices
-from node_driver.gateway.utils import from_gas_amount
-from node_driver.utils.lambdas import LOGGER
+from node_controller.gateway.protos import gateway_pb2, gateway_pb2_grpc, celaut_pb2
+from node_controller.gateway.protos.gateway_pb2_grpcbf import StartService_input_indices
+from node_controller.gateway.utils import from_gas_amount
+from node_controller.utils.lambdas import LOGGER
 
 
 def generate_gateway_stub(gateway_uri: str) -> gateway_pb2_grpc.GatewayStub:

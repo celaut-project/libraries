@@ -5,7 +5,7 @@ from time import sleep
 
 import grpc
 
-from node_driver.gateway.communication import stop
+from node_controller.gateway.communication import stop
 
 
 class ServiceInstance(object):

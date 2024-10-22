@@ -6,7 +6,7 @@ setup(
 
     url='https://github.com/celaut-project/libraries.git',
 
-    py_modules=['node_driver', 'resource_manager'],
+    py_modules=['node_controller', 'resource_manager'],
     install_requires=[
         'pee-rpc@git+https://github.com/pee-rpc-protocol/pee-rpc',
     ],

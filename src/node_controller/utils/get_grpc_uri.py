@@ -1,4 +1,4 @@
-from node_driver.gateway.protos import celaut_pb2
+from node_controller.gateway.protos import celaut_pb2
 
 
 def get_grpc_uri(instance: celaut_pb2.Instance) -> celaut_pb2.Instance.Uri:

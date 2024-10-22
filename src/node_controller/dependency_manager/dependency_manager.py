@@ -3,15 +3,15 @@ from threading import Thread, Lock
 from time import sleep
 from typing import Dict, Callable, Any, Tuple, Union
 
-from node_driver.dependency_manager.service_interface import ServiceInterface
-from node_driver.dependency_manager.service_instance import ServiceInstance
-from node_driver.dependency_manager.service_config import ServiceConfig
-from node_driver.gateway.communication import generate_gateway_stub
-from node_driver.gateway.protos import gateway_pb2, celaut_pb2, gateway_pb2_grpc
-from node_driver.utils.lambdas import SHA3_256, STATIC_SERVICE_DIRECTORY, DYNAMIC_SERVICE_DIRECTORY, \
+from node_controller.dependency_manager.service_interface import ServiceInterface
+from node_controller.dependency_manager.service_instance import ServiceInstance
+from node_controller.dependency_manager.service_config import ServiceConfig
+from node_controller.gateway.communication import generate_gateway_stub
+from node_controller.gateway.protos import gateway_pb2, celaut_pb2, gateway_pb2_grpc
+from node_controller.utils.lambdas import SHA3_256, STATIC_SERVICE_DIRECTORY, DYNAMIC_SERVICE_DIRECTORY, \
     STATIC_METADATA_DIRECTORY, DYNAMIC_METADATA_DIRECTORY
-from node_driver.utils.lambdas import LOGGER
-from node_driver.utils.singleton import Singleton
+from node_controller.utils.lambdas import LOGGER
+from node_controller.utils.singleton import Singleton
 
 MAINTENANCE_SLEEP_TIME_DEFAULT = 60
 TIMEOUT_DEFAULT = 30

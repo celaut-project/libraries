@@ -1,6 +1,6 @@
-from node_driver.dependency_manager.service_instance import ServiceInstance
+from node_controller.dependency_manager.service_instance import ServiceInstance
 
-from node_driver.dependency_manager.service_config import ServiceConfig
+from node_controller.dependency_manager.service_config import ServiceConfig
 
 
 class ServiceInterface:
