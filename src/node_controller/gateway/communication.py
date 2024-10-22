@@ -111,7 +111,7 @@ def stop(gateway_stub, token: str):
             sleep(1)
 
 
-def modify_resources(i: dict, gateway_main_dir: str) -> Tuple[celaut_pb2.Sysresources, int]:
+def modify_resources(i: dict, node_url: str) -> Tuple[celaut_pb2.Sysresources, int]:
     output: gateway_pb2.ModifyServiceSystemResourcesOutput = next(
         client_grpc(
             method=gateway_pb2_grpc.GatewayStub(
