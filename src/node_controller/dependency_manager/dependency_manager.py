@@ -1,7 +1,7 @@
 from datetime import timedelta, datetime
 from threading import Thread, Lock
 from time import sleep
-from typing import Dict, Callable, Any, Tuple, Union
+from typing import Dict, Callable, Any, Tuple, Union, Optional
 
 from node_controller.dependency_manager.service_interface import ServiceInterface
 from node_controller.dependency_manager.service_instance import ServiceInstance
@@ -22,7 +22,7 @@ PASS_TIMEOUT_TIMES_DEFAULT = 5
 class DependencyManager(metaclass=Singleton):
 
     def __init__(self,
-                 node_url: str,
+                 node_url: str = "",
                  static_service_directory: str = STATIC_SERVICE_DIRECTORY,
                  static_metadata_directory: str = STATIC_METADATA_DIRECTORY,
                  dynamic_service_directory: str = DYNAMIC_SERVICE_DIRECTORY,
@@ -33,6 +33,9 @@ class DependencyManager(metaclass=Singleton):
                  pass_timeout_times: int = PASS_TIMEOUT_TIMES_DEFAULT,
                  dev_client: str = None,
                  ):
+
+        if not node_url:
+            raise Exception("Node url not provided.")
 
         self.maintenance_sleep_time = maintenance_sleep_time
         self.timeout = timeout
@@ -99,8 +102,8 @@ class DependencyManager(metaclass=Singleton):
 
     def add_service(self,
                     service_hash: str,
-                    config: celaut_pb2.Configuration,
-                    dynamic: bool,
+                    config: Optional[celaut_pb2.Configuration] = None,
+                    dynamic: bool = False,
                     timeout: int = None,
                     failed_attempts: int = None,
                     pass_timeout_times: int = None

@@ -1,6 +1,9 @@
 import logging
+from typing import Optional, Tuple
+
 from node_controller.dependency_manager.dependency_manager import DependencyManager
-from node_controller.gateway.communication import modify_resources
+from node_controller.dependency_manager.service_interface import ServiceInterface
+from node_controller.gateway.communication import modify_resources as gateway_modify_resources
 from node_controller.gateway.protos import celaut_pb2
 from node_controller.utils.get_grpc_uri import get_grpc_uri
 from node_controller.utils.read_file import read_file
@@ -46,7 +49,7 @@ class Controller(metaclass=Singleton):
             ResourceManager(
                 log=lambda message: logging.info(message),
                 ram_pool_method=lambda: self.mem_limit,
-                modify_resources=lambda d: modify_resources(i=d, node_url=self.node_url)
+                modify_resources=lambda d: gateway_modify_resources(i=d, node_url=self.node_url)
             )
 
     def get_node_url(self) -> str:
@@ -54,3 +57,26 @@ class Controller(metaclass=Singleton):
 
     def get_mem_limit_at_start(self) -> int:
         return self.mem_limit
+
+    def add_service(self,
+                    service_hash: str,
+                    config: Optional[celaut_pb2.Configuration] = None,
+                    dynamic: bool = False,
+                    timeout: int = None,
+                    failed_attempts: int = None,
+                    pass_timeout_times: int = None
+                    ) -> ServiceInterface:
+        return DependencyManager().add_service(
+            service_hash=service_hash,
+            config=config,
+            dynamic=dynamic,
+            timeout=timeout,
+            failed_attempts=failed_attempts,
+            pass_timeout_times=pass_timeout_times
+        )
+
+    def modify_resources(self, resources: dict) -> Tuple[celaut_pb2.Sysresources, int]:
+        return gateway_modify_resources(
+            i={'max': resources.get('max', 0), 'min': resources.get('min', 0)},
+            node_url=self.node_url
+        )
