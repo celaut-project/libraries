@@ -7,7 +7,7 @@ import grpc
 
 from node_controller.gateway.protos import gateway_pb2, gateway_pb2_grpc, celaut_pb2
 from node_controller.gateway.protos.gateway_pb2_grpcbf import StartService_input_indices
-from node_controller.gateway.utils import from_gas_amount
+from node_controller.gateway.utils import from_gas_amount, to_gas_amount
 from node_controller.utils.lambdas import LOGGER
 
 
@@ -38,10 +38,11 @@ def __service_extended(
                 resources=gateway_pb2.CombinationResources(clause={
                     1: gateway_pb2.CombinationResources.Clause(
                         min_sysreq=celaut_pb2.Sysresources(
-                            mem_limit=80 * pow(10, 6)
+                            mem_limit=7 * pow(10, 6)
                         )
                     )
-                })
+                }),
+                initial_gas_amount=to_gas_amount(10000)
             )
 
     for _hash in hashes:
